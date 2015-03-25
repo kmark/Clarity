@@ -26,7 +26,7 @@
     <string name="dialog_about_github_title">GitHub</string>
     <string name="dialog_about_github_link">https://github.com/kmark/Clarity</string>
     <string name="dialog_about_xda_title">XDA</string>
-    <string name="dialog_about_xda_link">http://www.xda-developers.com/</string>
+    <string name="dialog_about_xda_link">http://forum.xda-developers.com/xposed/modules/clarity-contact-thumbnails-don-t-mind-t3063804</string>
     <string name="dialog_about_license"><a href="#">License</a></string>
     <string name="dialog_about_license_title">License</string>
     <string name="dialog_about_thanks">Thank you!</string>

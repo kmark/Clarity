@@ -3,7 +3,7 @@
 
 ***Android contact thumbnails you don't mind looking at.***
 
-> **XDA-Developers:**  [forum.xda-developers.com](http://forum.xda-developers.com/)  
+> **XDA-Developers:**  [forum.xda-developers.com/xposed/modules/clarity-t3063804](http://forum.xda-developers.com/xposed/modules/clarity-contact-thumbnails-don-t-mind-t3063804)  
 > **Xposed Repository:** [repo.xposed.info/module/com.versobit.kmark.clarity](http://repo.xposed.info/module/com.versobit.kmark.clarity)
 
 Clarity is an Xposed module and root Android application for increasing the size and quality of contact thumbnails in the Android contacts database. It's comprised of two components. An Xposed modification and a root-required Database Processor.
