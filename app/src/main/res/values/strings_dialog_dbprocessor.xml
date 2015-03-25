@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (C) 2015 Kevin Mark
+
+    This file is part of Clarity.
+
+    Clarity is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Clarity is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Clarity.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<resources>
+
+    <string name="dialog_dbproc_title">Database Processor</string>
+    <string name="dialog_dbproc_dryrun">Dry Run</string>
+    <string name="dialog_dbproc_retainbackups">Retain Backups</string>
+    <string name="dialog_dbproc_softreboot">Soft Reboot</string>
+    <string name="dialog_dbproc_exec">Start</string>
+    <string name="dialog_dbproc_execpct">%1$d%%</string>
+    <string name="dialog_dbproc_toast_dryrun">Your funeral.</string>
+    <string name="dialog_dbproc_toast_backups">It was nice knowing you.</string>
+
+</resources>

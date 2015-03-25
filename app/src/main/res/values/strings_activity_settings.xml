@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (C) 2015 Kevin Mark
+
+    This file is part of Clarity.
+
+    Clarity is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Clarity is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Clarity.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<resources>
+
+    <!-- Strings related to SettingsActivity -->
+    <string name="title_activity_settings">Clarity</string>
+    
+    <!-- General -->
+    <string name="pref_title_thumbnail_dim">Thumbnail size</string>
+
+    <string name="pref_title_database_processor">Database processor</string>
+    <string name="pref_desc_database_processor">See XDA thread before using.</string>
+
+    <string name="pref_title_show_icon">Show launcher icon</string>
+    <string name="pref_desc_show_icon">Make Clarity appear in your launcher</string>
+
+    <!-- About -->
+    <string name="pref_header_about">About</string>
+
+    <string name="pref_title_about_clarity">Clarity v%1$s</string>
+    <string name="pref_desc_about_clarity">Free, open-source, awesome</string>
+
+    <string name="pref_title_about_debug">Debug mode</string>
+    <string name="pref_desc_about_debug">Advanced Xposed logging</string>
+</resources>

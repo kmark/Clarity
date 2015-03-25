@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (C) 2015 Kevin Mark
+
+    This file is part of Clarity.
+
+    Clarity is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Clarity is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Clarity.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <string name="frag_dbproc_starting">Starting task on %1$tF at %1$tr\n</string>
+    <string name="frag_dbproc_end">Task ended on %1$tF at %1$tr\n</string>
+    <string name="frag_dbproc_backupdir" tools:ignore="TypographyDashes">%1$tF--%1$tH-%1$tM-%1$tS</string>
+    <string name="frag_dbproc_thumbpreferror">Warning: Your max thumbnail dimension setting could not be converted to an integer. Defaulting to %1$d.\n</string>
+    <string name="frag_dbproc_params">Dimen = %1$d, Dry Run = %2$s, Backups = %3$s, Reboot = %4$s\nCache = %5$s\nContacts = %6$s\n</string>
+    <string name="frag_dbproc_noroot">Error: Root not available.\n</string>
+    <string name="frag_dbrpoc_selinux">SELinux is enforcing.\n</string>
+    <string name="frag_dbproc_pkg404">Error: Could not find the required packages. %1$s\n</string>
+    <string name="frag_dbproc_cpdbcache">Copying contacts database to cache…\n</string>
+    <string name="frag_dbproc_cppicscache">Copying photos to cache…\n</string>
+    <string name="frag_dbproc_opendb">Opening contacts database…\n</string>
+    <string name="frag_dbproc_opendberror">Error: Failed to open database %s\n</string>
+    <string name="frag_dbproc_dbqd15">Querying for contacts with photos…\n</string>
+    <string name="frag_dbproc_dbqd15total">%1$d found.\n</string>
+    <string name="frag_dbproc_workphoto">%1$d/%2$d: Processing contact %3$d with photo %4$s\n</string>
+    <string name="frag_dbproc_photochkfail">Warning: Photo file failed validation: %1$s, %2$s, %3$s\n</string>
+    <string name="frag_dbproc_photosize">Source photo is %1$d×%2$d.\n</string>
+    <string name="frag_dbproc_insertphotos">Placing %1$d new thumbnail%2$s into the contacts database…\n</string>
+    <string name="frag_dbproc_insertphotos_plural">s</string>
+    <string name="frag_dbproc_insertfail">Error: Failed to insert a new thumbnail. %1$s\n</string>
+    <string name="frag_dbproc_cpback">Copying contacts database back to its original location…\n</string>
+    <string name="frag_dbproc_cpbackdryrun">Dry run. Not overwriting contacts database.\n</string>
+    <string name="frag_dbproc_success">Contact thumbnail database upgrade completed successfully.\n</string>
+    <string name="frag_dbproc_dobackup">Backing up current contacts database to %1$s\n</string>
+    <string name="frag_dbproc_backupmkdirerror">Error: Failed to create backup directory %1$s\n</string>
+    <string name="frag_dbproc_backupcopyerror">Error: Failed to backup contacts database %1$s\n</string>
+    <string name="frag_dbproc_backupstateerror">Error: External storage is not mounted (%1$s)</string>
+    <string name="frag_dbproc_invalidchars">Error: The cache and/or contact path contains invalid characters.\n</string>
+    <string name="frag_dbproc_initcpfail">Error: Failed to copy database to cache %1$s, %2$s, %3$s, %4$s, %5$s, %6$s\n</string>
+    <string name="frag_dbproc_photocpfail">Error: Failed to copy source contact photos to cache %1$s %2$s %3$s\n</string>
+    <string name="frag_dbproc_founduids">Clarity UID = %1$d, Contacts UID = %2$d\n</string>
+    <string name="frag_dbproc_newthumb">New thumbnail is %1$d×%2$d, %3$d bytes\n</string>
+    <string name="frag_dbproc_notsquare">Contact photo is not square. Skipping.\n</string>
+    <string name="frag_dbproc_softreboot_wait">Soft reboot in 3 seconds…\n</string>
+    <string name="frag_dbproc_dryreboot">Dry run. Not soft rebooting.\n</string>
+    <string name="frag_dbproc_softreboot_bye">Rebooting…\n</string>
+    <string name="frag_dbproc_shell">Shell: %1$s\n</string>
+
+</resources>

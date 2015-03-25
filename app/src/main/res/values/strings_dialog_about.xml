@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (C) 2015 Kevin Mark
+
+    This file is part of Clarity.
+
+    Clarity is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Clarity is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Clarity.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<resources>
+
+    <string name="dialog_about_copyright">Copyright © 2015 Kevin Mark </string>
+    <string name="dialog_about_donate">Clarity is developed in my spare time and will always
+        remain free and open-source software. If you find this application useful please feel free to
+    <a href="http://forum.xda-developers.com/donatetome.php?u=4195957">donate</a>.</string>
+    <string name="dialog_about_github_title">GitHub</string>
+    <string name="dialog_about_github_link">https://github.com/kmark/Clarity</string>
+    <string name="dialog_about_xda_title">XDA</string>
+    <string name="dialog_about_xda_link">http://www.xda-developers.com/</string>
+    <string name="dialog_about_license"><a href="#">License</a></string>
+    <string name="dialog_about_license_title">License</string>
+    <string name="dialog_about_thanks">Thank you!</string>
+    <string name="dialog_about_ok">OK</string>
+    <string name="dialog_about_dismiss">Cool</string>
+
+</resources>

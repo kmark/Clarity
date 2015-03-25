@@ -1,0 +1,33 @@
+apply plugin: 'com.android.application'
+
+def gitRev = { ->
+    try {
+        def stdout = new ByteArrayOutputStream()
+        exec {
+            commandLine './gitRev.sh'
+            standardOutput = stdout
+        }
+        return stdout.toString().trim()
+    }
+    catch (ignored) {
+        return "nogit";
+    }
+}
+
+android {
+    compileSdkVersion 22
+    buildToolsVersion "22.0.1"
+    defaultConfig {
+        applicationId "com.versobit.kmark.clarity"
+        minSdkVersion 14
+        targetSdkVersion 22
+        versionCode 1
+        versionName "1.0-" + gitRev()
+    }
+}
+
+dependencies {
+    provided files('libs/XposedBridgeApi-54.jar')
+    compile 'eu.chainfire:libsuperuser:1.0.0.+'
+    compile 'commons-io:commons-io:2.4'
+}

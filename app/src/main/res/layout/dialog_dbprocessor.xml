@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (C) 2015 Kevin Mark
+
+    This file is part of Clarity.
+
+    Clarity is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Clarity is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Clarity.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dialog_dbproc_rootscroll"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/dialog_dbproc_title"
+            android:textStyle="bold"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/dialog_dbproc_title" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/dialog_dbproc_dryrun"
+            android:id="@+id/dialog_dbproc_dryrun"
+            android:textSize="16sp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="-3dp"
+            android:checked="true" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="3dp"
+            android:layout_gravity="center_horizontal">
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/dialog_dbproc_retainbackups"
+                android:checked="true"
+                android:textSize="16sp"
+                android:id="@+id/dialog_dbproc_retain"
+                android:layout_marginRight="5dp" />
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/dialog_dbproc_softreboot"
+                android:checked="true"
+                android:textSize="16sp"
+                android:id="@+id/dialog_dbproc_reboot"
+                android:layout_marginLeft="5dp" />
+
+        </LinearLayout>
+
+        <ScrollView
+            android:background="#ffc8c8c8"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:fillViewport="true"
+            android:id="@+id/dialog_dbproc_logvscroll">
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fillViewport="true">
+
+                <TextView
+                    android:padding="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp"
+                    android:typeface="monospace"
+                    android:fontFamily="monospace"
+                    android:textIsSelectable="true"
+                    android:id="@+id/dialog_dbproc_log" />
+
+            </HorizontalScrollView>
+
+        </ScrollView>
+
+        <ProgressBar
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:indeterminate="false"
+            android:id="@+id/dialog_dbproc_progress"
+            android:max="10000" />
+
+        <Button
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="@string/dialog_dbproc_exec"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/dialog_dbproc_start"
+            android:layout_marginLeft="3dp" />
+
+    </LinearLayout>
+
+</ScrollView>
