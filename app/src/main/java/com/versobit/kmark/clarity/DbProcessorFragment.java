@@ -142,12 +142,13 @@ public final class DbProcessorFragment extends Fragment {
         private final String TAG = ProcessorTask.class.getSimpleName();
         private Date start = null;
         private File logFile = null;
+        private final Activity act = getActivity();
 
         @Override
         protected void onPreExecute() {
             log.setLength(0);
             start = new Date();
-            onProgressUpdate(null, getString(R.string.frag_dbproc_starting, start));
+            onProgressUpdate(null, act.getString(R.string.frag_dbproc_starting, start));
         }
 
         @Override
@@ -163,7 +164,7 @@ public final class DbProcessorFragment extends Fragment {
             File cachedDb = new File(cachePath, "contacts2.db");
             File cachedJournal = new File(cachePath, "contacts2.db-journal");
             File cachedPhotos = new File(cachePath, "photos");
-            File backupDir = new File(extDir, getString(R.string.frag_dbproc_backupdir, start));
+            File backupDir = new File(extDir, act.getString(R.string.frag_dbproc_backupdir, start));
             int appUid;
             int providerUid;
             Debug.setDebug(BuildConfig.DEBUG);
@@ -176,31 +177,31 @@ public final class DbProcessorFragment extends Fragment {
                 SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
                 thumbnailDim = Integer.parseInt(prefs.getString(Setting.THUMBNAIL_DIM.toString(), "256"));
             } catch (NumberFormatException ex) {
-                publishProgress(internalProg, getString(R.string.frag_dbproc_thumbpreferror, thumbnailDim));
+                publishProgress(internalProg, act.getString(R.string.frag_dbproc_thumbpreferror, thumbnailDim));
             }
 
             internalProg = (int)(0.02 * PROGRESS_MAX);
-            publishProgress(internalProg, getString(
+            publishProgress(internalProg, act.getString(
                     R.string.frag_dbproc_params, thumbnailDim, dryRun, backups, reboot,
                     cachePath, contactsPath
             ));
 
             if(!Shell.SU.available()) {
-                publishProgress(internalProg, getString(R.string.frag_dbproc_noroot));
+                publishProgress(internalProg, act.getString(R.string.frag_dbproc_noroot));
                 return null;
             }
             internalProg = (int)(0.04 * PROGRESS_MAX);
             publishProgress(internalProg, null);
 
             if(Shell.SU.isSELinuxEnforcing()) {
-                publishProgress(internalProg, getString(R.string.frag_dbrpoc_selinux));
+                publishProgress(internalProg, act.getString(R.string.frag_dbrpoc_selinux));
             }
             internalProg = (int)(0.06 * PROGRESS_MAX);
             publishProgress(internalProg, null);
 
             if(CHARACTER_BLACKLIST.matcher(cachePath).matches() ||
                     CHARACTER_BLACKLIST.matcher(contactsPath).matches()) {
-                publishProgress(internalProg, getString(R.string.frag_dbproc_invalidchars));
+                publishProgress(internalProg, act.getString(R.string.frag_dbproc_invalidchars));
                 return null;
             }
 
@@ -212,13 +213,13 @@ public final class DbProcessorFragment extends Fragment {
                 appUid = pm.getApplicationInfo(BuildConfig.APPLICATION_ID, 0).uid;
                 providerUid = pm.getApplicationInfo(CONTACTS_PROVIDER_PKG, 0).uid;
             } catch (PackageManager.NameNotFoundException ex) {
-                publishProgress(internalProg, getString(R.string.frag_dbproc_pkg404, ex.getMessage()));
+                publishProgress(internalProg, act.getString(R.string.frag_dbproc_pkg404, ex.getMessage()));
                 return null;
             }
             internalProg = (int)(0.10 * PROGRESS_MAX);
-            publishProgress(internalProg, getString(R.string.frag_dbproc_founduids, appUid, providerUid));
+            publishProgress(internalProg, act.getString(R.string.frag_dbproc_founduids, appUid, providerUid));
 
-            publishProgress(internalProg, getString(R.string.frag_dbproc_cpdbcache));
+            publishProgress(internalProg, act.getString(R.string.frag_dbproc_cpdbcache));
             logSuOutput(Shell.SU.run(new String[]{
                     "rm " + cachedDb.getAbsolutePath(),
                     "rm " + cachedJournal.getAbsolutePath(),
@@ -233,14 +234,14 @@ public final class DbProcessorFragment extends Fragment {
 
             if(!cachedDb.exists() || !cachedDb.canRead() || !cachedDb.canWrite() ||
                     !cachedJournal.exists() || !cachedJournal.canRead() || !cachedJournal.canWrite()) {
-                publishProgress(internalProg, getString(R.string.frag_dbproc_initcpfail,
+                publishProgress(internalProg, act.getString(R.string.frag_dbproc_initcpfail,
                         cachedDb.exists(), cachedDb.canRead(), cachedDb.canWrite(),
                         cachedJournal.exists(), cachedJournal.canRead(), cachedJournal.canWrite()));
                 return null;
             }
 
             internalProg = (int)(0.18 * PROGRESS_MAX);
-            publishProgress(internalProg, getString(R.string.frag_dbproc_cppicscache));
+            publishProgress(internalProg, act.getString(R.string.frag_dbproc_cppicscache));
             logSuOutput(Shell.SU.run(new String[]{
                     "rm -r " + cachedPhotos.getAbsolutePath(),
                     "cp -R " + contactsPath + "/files/photos " + cachePath,
@@ -252,7 +253,7 @@ public final class DbProcessorFragment extends Fragment {
             publishProgress(internalProg, null);
 
             if(!cachedPhotos.exists() && !cachedPhotos.canRead() || !cachedPhotos.canExecute()) {
-                publishProgress(internalProg, getString(R.string.frag_dbproc_photocpfail,
+                publishProgress(internalProg, act.getString(R.string.frag_dbproc_photocpfail,
                         cachedPhotos.exists(), cachedPhotos.canRead(), cachedPhotos.canExecute()));
                 return null;
             }
@@ -263,16 +264,16 @@ public final class DbProcessorFragment extends Fragment {
             if(backups) {
                 if(!Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
                     publishProgress(internalProg,
-                            getString(R.string.frag_dbproc_backupstateerror, Environment.getExternalStorageState()));
+                            act.getString(R.string.frag_dbproc_backupstateerror, Environment.getExternalStorageState()));
                     return null;
                 }
                 internalProg = (int)(0.25 * PROGRESS_MAX);
                 publishProgress(internalProg,
-                        getString(R.string.frag_dbproc_dobackup, backupDir.getAbsolutePath()));
+                        act.getString(R.string.frag_dbproc_dobackup, backupDir.getAbsolutePath()));
 
                 if(!backupDir.exists() && !backupDir.mkdirs()) {
                     publishProgress(internalProg,
-                            getString(R.string.frag_dbproc_backupmkdirerror, backupDir.getAbsolutePath()));
+                            act.getString(R.string.frag_dbproc_backupmkdirerror, backupDir.getAbsolutePath()));
                     return null;
                 } else {
                     try {
@@ -280,27 +281,27 @@ public final class DbProcessorFragment extends Fragment {
                         FileUtils.copyFile(cachedJournal, new File(backupDir, "contacts2.db-journal"));
                     } catch (IOException ex) {
                         publishProgress(internalProg,
-                                getString(R.string.frag_dbproc_backupcopyerror, ex.getMessage()));
+                                act.getString(R.string.frag_dbproc_backupcopyerror, ex.getMessage()));
                         return null;
                     }
                 }
             }
 
             internalProg = (int)(0.30 * PROGRESS_MAX);
-            publishProgress(internalProg, getString(R.string.frag_dbproc_opendb));
+            publishProgress(internalProg, act.getString(R.string.frag_dbproc_opendb));
             SQLiteDatabase contactsDb;
             try {
                 contactsDb = SQLiteDatabase.openDatabase(cachedDb.getAbsolutePath(), null, SQLiteDatabase.OPEN_READWRITE);
             } catch (SQLiteException ex) {
-                publishProgress(internalProg, getString(R.string.frag_dbproc_opendberror, ex.getMessage()));
+                publishProgress(internalProg, act.getString(R.string.frag_dbproc_opendberror, ex.getMessage()));
                 return null;
             }
 
             internalProg = PROGRESS_MAX / 3;
-            publishProgress(internalProg, getString(R.string.frag_dbproc_dbqd15));
+            publishProgress(internalProg, act.getString(R.string.frag_dbproc_dbqd15));
             Cursor photoContacts = contactsDb.rawQuery("SELECT d._id, d.data14 FROM data AS d JOIN mimetypes AS m on d.mimetype_id = m._id WHERE m.mimetype = 'vnd.android.cursor.item/photo' AND d.data14 IS NOT NULL AND d.data15 IS NOT NULL", null);
             int totalContacts = photoContacts.getCount();
-            publishProgress(internalProg, getString(R.string.frag_dbproc_dbqd15total, totalContacts));
+            publishProgress(internalProg, act.getString(R.string.frag_dbproc_dbqd15total, totalContacts));
 
             List<Pair<Integer, byte[]>> newThumbnails = new ArrayList<>();
 
@@ -310,11 +311,11 @@ public final class DbProcessorFragment extends Fragment {
                 int photoId = photoContacts.getInt(1);
                 File photoFile = new File(cachedPhotos, String.valueOf(photoId));
                 internalProg += PROGRESS_MAX / totalContacts / 3;
-                publishProgress(internalProg, getString(
+                publishProgress(internalProg, act.getString(
                         R.string.frag_dbproc_workphoto, i + 1, totalContacts, id, photoId));
 
                 if(!photoFile.exists() || !photoFile.canRead() || !photoFile.isFile()) {
-                    publishProgress(internalProg, getString(
+                    publishProgress(internalProg, act.getString(
                             R.string.frag_dbproc_photochkfail, photoFile.exists(),
                             photoFile.canRead(), photoFile.isFile()));
                     continue;
@@ -326,10 +327,10 @@ public final class DbProcessorFragment extends Fragment {
                 inOpts.inPreferredConfig = Bitmap.Config.ARGB_8888;
                 Bitmap original = BitmapFactory.decodeFile(photoFile.getAbsolutePath(), inOpts);
                 int srcW = original.getWidth(), srcH = original.getHeight();
-                publishProgress(internalProg, getString(R.string.frag_dbproc_photosize, srcW, srcH));
+                publishProgress(internalProg, act.getString(R.string.frag_dbproc_photosize, srcW, srcH));
 
                 if(srcW != srcH) {
-                    publishProgress(internalProg, getString(R.string.frag_dbproc_notsquare));
+                    publishProgress(internalProg, act.getString(R.string.frag_dbproc_notsquare));
                     original.recycle();
                     continue;
                 }
@@ -350,7 +351,7 @@ public final class DbProcessorFragment extends Fragment {
                 }
                 original.recycle();
 
-                publishProgress(internalProg, getString(R.string.frag_dbproc_newthumb, destW,
+                publishProgress(internalProg, act.getString(R.string.frag_dbproc_newthumb, destW,
                         destH, output.size()));
 
                 newThumbnails.add(new Pair<>(id, output.toByteArray()));
@@ -364,9 +365,9 @@ public final class DbProcessorFragment extends Fragment {
             photoContacts.close();
 
             internalProg = (int)(2.0 / 3.0 * PROGRESS_MAX);
-            publishProgress(internalProg, getString(R.string.frag_dbproc_insertphotos,
+            publishProgress(internalProg, act.getString(R.string.frag_dbproc_insertphotos,
                     newThumbnails.size(),
-                    newThumbnails.size() != 1 ? getString(R.string.frag_dbproc_insertphotos_plural) : ""));
+                    newThumbnails.size() != 1 ? act.getString(R.string.frag_dbproc_insertphotos_plural) : ""));
 
             SQLiteStatement update = contactsDb.compileStatement("UPDATE data SET data15 = ? WHERE _id = ?");
             try {
@@ -379,7 +380,7 @@ public final class DbProcessorFragment extends Fragment {
                     publishProgress(internalProg, null);
                 }
             } catch (SQLException ex) {
-                publishProgress(internalProg, getString(R.string.frag_dbproc_insertfail, ex.getMessage()));
+                publishProgress(internalProg, act.getString(R.string.frag_dbproc_insertfail, ex.getMessage()));
                 return null;
             } finally {
                 update.close();
@@ -388,9 +389,9 @@ public final class DbProcessorFragment extends Fragment {
 
             internalProg = (int)(0.95 * PROGRESS_MAX);
             if(dryRun) {
-                publishProgress(internalProg, getString(R.string.frag_dbproc_cpbackdryrun));
+                publishProgress(internalProg, act.getString(R.string.frag_dbproc_cpbackdryrun));
             } else {
-                publishProgress(internalProg, getString(R.string.frag_dbproc_cpback));
+                publishProgress(internalProg, act.getString(R.string.frag_dbproc_cpback));
                 logSuOutput(Shell.SU.run(new String[] {
                         "cp " + cachedDb.getAbsolutePath() + " " + contactsPath + "/databases/contacts2.db",
                         "cp " + cachedJournal.getAbsolutePath() + " " + contactsPath + "/databases/contacts2.db-journal",
@@ -400,16 +401,16 @@ public final class DbProcessorFragment extends Fragment {
             }
 
             internalProg = PROGRESS_MAX;
-            publishProgress(internalProg, getString(R.string.frag_dbproc_success));
+            publishProgress(internalProg, act.getString(R.string.frag_dbproc_success));
 
             if(reboot) {
-                publishProgress(internalProg, getString(R.string.frag_dbproc_softreboot_wait));
+                publishProgress(internalProg, act.getString(R.string.frag_dbproc_softreboot_wait));
                 try {
                     Thread.sleep(3000);
                 } catch (InterruptedException ex) {
                     Thread.currentThread().interrupt();
                 }
-                publishProgress(internalProg, getString(dryRun ? R.string.frag_dbproc_dryreboot :
+                publishProgress(internalProg, act.getString(dryRun ? R.string.frag_dbproc_dryreboot :
                         R.string.frag_dbproc_softreboot_bye));
                 return dryRun ? null : true;
             }
@@ -423,7 +424,7 @@ public final class DbProcessorFragment extends Fragment {
             }
             for(String s : output) {
                 if(s != null && !s.trim().isEmpty()) {
-                    publishProgress(null, getString(R.string.frag_dbproc_shell, s.trim()));
+                    publishProgress(null, act.getString(R.string.frag_dbproc_shell, s.trim()));
                 }
             }
         }
@@ -453,7 +454,7 @@ public final class DbProcessorFragment extends Fragment {
 
         @Override
         protected void onPostExecute(Object object) {
-            onProgressUpdate(PROGRESS_MAX, getString(R.string.frag_dbproc_end, new Date()));
+            onProgressUpdate(PROGRESS_MAX, act.getString(R.string.frag_dbproc_end, new Date()));
 
             if(logFile != null && logFile.getParentFile().exists()) {
                 try {
