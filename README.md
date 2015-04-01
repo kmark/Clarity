@@ -26,7 +26,7 @@ In addition to the Xposed-based modification described above, Clarity includes a
 
 The Database Processor has been tested on CyanogenMod 10 (based on Android 4.1.2), CyanogenMod 11 (based on Android 4.4.4), and CyanogenMod 12 (based on Android 5.0.2). It *should* work on any AOSP-based ROM from Ice Cream Sandwich (4.0) to Lollipop MR1 (5.1). For stock ROMs and anything created by carriers I have no idea. If it works for you please report back! If it doesn't, well, report that too.
 
-Clarity is developed in my spare time and will always remain free and open-source software. If you find this application useful please feel free to [donate](http://forum.xda-developers.com/donatetome.php?u=4195957).
+Clarity is developed in my spare time and will always remain free and open-source software. If you find this application useful please feel free to [donate](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=M9Z5Y8EF3DH7G).
 
 ## Screenshots
 

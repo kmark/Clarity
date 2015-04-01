@@ -22,7 +22,7 @@
     <string name="dialog_about_copyright">Copyright © 2015 Kevin Mark </string>
     <string name="dialog_about_donate">Clarity is developed in my spare time and will always
         remain free and open-source software. If you find this application useful please feel free to
-    <a href="http://forum.xda-developers.com/donatetome.php?u=4195957">donate</a>.</string>
+    <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=M9Z5Y8EF3DH7G">donate</a>.</string>
     <string name="dialog_about_github_title">GitHub</string>
     <string name="dialog_about_github_link">https://github.com/kmark/Clarity</string>
     <string name="dialog_about_xda_title">XDA</string>
