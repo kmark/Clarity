@@ -25,7 +25,7 @@
     <string name="dialog_dbproc_softreboot">Soft Reboot</string>
     <string name="dialog_dbproc_exec">Start</string>
     <string name="dialog_dbproc_execpct">%1$d%%</string>
-    <string name="dialog_dbproc_toast_dryrun">Your funeral.</string>
-    <string name="dialog_dbproc_toast_backups">It was nice knowing you.</string>
+    <string name="dialog_dbproc_toast_dryrun">( ͡ʘ ͜ʖ ͡ʘ)</string>
+    <string name="dialog_dbproc_toast_backups">(╯°□°）╯︵ ┻━┻</string>
 
 </resources>
