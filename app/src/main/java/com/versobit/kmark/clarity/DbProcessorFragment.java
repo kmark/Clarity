@@ -467,7 +467,7 @@ public final class DbProcessorFragment extends Fragment {
 
             if(object == Boolean.TRUE) {
                 new Shell.Builder().useSU()
-                        .addCommand("setprop ctl.restart surfaceflinger; setprop ctl.restart zygote")
+                        .addCommand("sync; setprop ctl.restart surfaceflinger; setprop ctl.restart zygote")
                         .open();
             }
 
