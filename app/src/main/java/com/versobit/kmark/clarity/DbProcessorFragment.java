@@ -185,6 +185,7 @@ public final class DbProcessorFragment extends Fragment {
             File backupDir = new File(extDir, act.getString(R.string.frag_dbproc_backupdir, start));
             int appUid;
             int providerUid;
+            boolean withJournal = true;
             Debug.setDebug(BuildConfig.DEBUG);
             cmdResults.clear();
 
@@ -248,11 +249,15 @@ public final class DbProcessorFragment extends Fragment {
             addCommand(su, "chown +" + appUid + ":+" + appUid + " " + cachedJournal.getAbsolutePath(), CMD_CHOWN_CACHE_JOURNAL);
             su.waitForIdle();
 
+            if(cmdResults.get(CMD_CP_JOURNAL_TO_CACHE) != 0) {
+                withJournal = false;
+                publishProgress(null, act.getString(R.string.frag_dbproc_nojournal));
+            }
+
             internalProg = (int)(0.15 * PROGRESS_MAX);
             publishProgress(internalProg, null);
 
-            if(!cachedDb.exists() || !cachedDb.canRead() || !cachedDb.canWrite() ||
-                    !cachedJournal.exists() || !cachedJournal.canRead() || !cachedJournal.canWrite()) {
+            if(!cachedDb.exists() || !cachedDb.canRead() || !cachedDb.canWrite()) {
                 publishProgress(internalProg, act.getString(R.string.frag_dbproc_initcpfail,
                         cachedDb.exists(), cachedDb.canRead(), cachedDb.canWrite(),
                         cachedJournal.exists(), cachedJournal.canRead(), cachedJournal.canWrite()));
@@ -300,7 +305,9 @@ public final class DbProcessorFragment extends Fragment {
                 } else {
                     try {
                         FileUtils.copyFile(cachedDb, new File(backupDir, "contacts2.db"));
-                        FileUtils.copyFile(cachedJournal, new File(backupDir, "contacts2.db-journal"));
+                        if(withJournal) {
+                            FileUtils.copyFile(cachedJournal, new File(backupDir, "contacts2.db-journal"));
+                        }
                     } catch (IOException ex) {
                         publishProgress(internalProg,
                                 act.getString(R.string.frag_dbproc_backupcopyerror, ex.getMessage()));
@@ -418,9 +425,11 @@ public final class DbProcessorFragment extends Fragment {
             } else {
                 publishProgress(internalProg, act.getString(R.string.frag_dbproc_cpback));
                 addCommand(su, "cp " + cachedDb.getAbsolutePath() + " " + contactsPath + "/databases/contacts2.db", CMD_CP_CACHE_TO_DB);
-                addCommand(su, "cp " + cachedJournal.getAbsolutePath() + " " + contactsPath + "/databases/contacts2.db-journal", CMD_CP_CACHE_TO_JOURNAL);
                 addCommand(su, "chown +" + providerUid + ":+" + providerUid + " " + contactsPath + "/databases/contacts2.db", CMD_CHOWN_DB);
-                addCommand(su, "chown +" + providerUid + ":+" + providerUid + " " + contactsPath + "/databases/contacts2.db-journal", CMD_CHOWN_JOURNAL);
+                if(withJournal) {
+                    addCommand(su, "cp " + cachedJournal.getAbsolutePath() + " " + contactsPath + "/databases/contacts2.db-journal", CMD_CP_CACHE_TO_JOURNAL);
+                    addCommand(su, "chown +" + providerUid + ":+" + providerUid + " " + contactsPath + "/databases/contacts2.db-journal", CMD_CHOWN_JOURNAL);
+                }
                 su.waitForIdle();
             }
 

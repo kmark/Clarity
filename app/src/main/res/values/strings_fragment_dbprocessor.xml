@@ -57,5 +57,6 @@
     <string name="frag_dbproc_softreboot_bye">Rebooting…\n</string>
     <string name="frag_dbproc_shell">Shell: %1$d - %2$s\n</string>
     <string name="frag_dbproc_shellout">Command %1$d returned %2$d%3$s\n</string>
+    <string name="frag_dbproc_nojournal">No journal file found.\n</string>
 
 </resources>
