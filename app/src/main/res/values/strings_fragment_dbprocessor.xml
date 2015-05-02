@@ -55,6 +55,7 @@
     <string name="frag_dbproc_softreboot_wait">Soft reboot in 3 seconds…\n</string>
     <string name="frag_dbproc_dryreboot">Dry run. Not soft rebooting.\n</string>
     <string name="frag_dbproc_softreboot_bye">Rebooting…\n</string>
-    <string name="frag_dbproc_shell">Shell: %1$s\n</string>
+    <string name="frag_dbproc_shell">Shell: %1$d - %2$s\n</string>
+    <string name="frag_dbproc_shellout">Command %1$d returned %2$d%3$s\n</string>
 
 </resources>

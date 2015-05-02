@@ -46,6 +46,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -140,9 +141,26 @@ public final class DbProcessorFragment extends Fragment {
     private final class ProcessorTask extends AsyncTask<Object, Object, Object> {
 
         private final String TAG = ProcessorTask.class.getSimpleName();
+
+        private static final int CMD_RM_CACHE_DB = 1;
+        private static final int CMD_RM_CACHE_JOURNAL = 2;
+        private static final int CMD_RM_CACHE_IMAGES = 7;
+        private static final int CMD_CP_DB_TO_CACHE = 3;
+        private static final int CMD_CP_JOURNAL_TO_CACHE = 4;
+        private static final int CMD_CP_IMGS_TO_CACHE = 8;
+        private static final int CMD_CP_CACHE_TO_DB = 11;
+        private static final int CMD_CP_CACHE_TO_JOURNAL = 12;
+        private static final int CMD_CHOWN_CACHE_DB = 5;
+        private static final int CMD_CHOWN_CACHE_JOURNAL = 6;
+        private static final int CMD_CHOWN_CACHE_IMGS_DIR = 9;
+        private static final int CMD_CHOWN_CACHE_IMGS_FILES = 10;
+        private static final int CMD_CHOWN_DB = 13;
+        private static final int CMD_CHOWN_JOURNAL = 14;
+
         private Date start = null;
         private File logFile = null;
         private final Activity act = getActivity();
+        private final Hashtable<Integer, Integer> cmdResults = new Hashtable<>();
 
         @Override
         protected void onPreExecute() {
@@ -168,6 +186,7 @@ public final class DbProcessorFragment extends Fragment {
             int appUid;
             int providerUid;
             Debug.setDebug(BuildConfig.DEBUG);
+            cmdResults.clear();
 
             if(backups) {
                 publishProgress(backupDir);
@@ -220,14 +239,14 @@ public final class DbProcessorFragment extends Fragment {
             publishProgress(internalProg, act.getString(R.string.frag_dbproc_founduids, appUid, providerUid));
 
             publishProgress(internalProg, act.getString(R.string.frag_dbproc_cpdbcache));
-            logSuOutput(Shell.SU.run(new String[]{
-                    "rm " + cachedDb.getAbsolutePath(),
-                    "rm " + cachedJournal.getAbsolutePath(),
-                    "cp " + contactsPath + "/databases/contacts2.db " + cachePath,
-                    "cp " + contactsPath + "/databases/contacts2.db-journal " + cachePath,
-                    "chown +" + appUid + ":+" + appUid + " " + cachedDb.getAbsolutePath(),
-                    "chown +" + appUid + ":+" + appUid + " " + cachedJournal.getAbsolutePath()
-            }));
+            Shell.Interactive su = new Shell.Builder().useSU().setWantSTDERR(true).open();
+            addCommand(su, "rm " + cachedDb.getAbsolutePath(), CMD_RM_CACHE_DB);
+            addCommand(su, "rm " + cachedJournal.getAbsolutePath(), CMD_RM_CACHE_JOURNAL);
+            addCommand(su, "cp " + contactsPath + "/databases/contacts2.db " + cachePath, CMD_CP_DB_TO_CACHE);
+            addCommand(su, "cp " + contactsPath + "/databases/contacts2.db-journal " + cachePath, CMD_CP_JOURNAL_TO_CACHE);
+            addCommand(su, "chown +" + appUid + ":+" + appUid + " " + cachedDb.getAbsolutePath(), CMD_CHOWN_CACHE_DB);
+            addCommand(su, "chown +" + appUid + ":+" + appUid + " " + cachedJournal.getAbsolutePath(), CMD_CHOWN_CACHE_JOURNAL);
+            su.waitForIdle();
 
             internalProg = (int)(0.15 * PROGRESS_MAX);
             publishProgress(internalProg, null);
@@ -237,17 +256,17 @@ public final class DbProcessorFragment extends Fragment {
                 publishProgress(internalProg, act.getString(R.string.frag_dbproc_initcpfail,
                         cachedDb.exists(), cachedDb.canRead(), cachedDb.canWrite(),
                         cachedJournal.exists(), cachedJournal.canRead(), cachedJournal.canWrite()));
+                su.close();
                 return null;
             }
 
             internalProg = (int)(0.18 * PROGRESS_MAX);
             publishProgress(internalProg, act.getString(R.string.frag_dbproc_cppicscache));
-            logSuOutput(Shell.SU.run(new String[]{
-                    "rm -r " + cachedPhotos.getAbsolutePath(),
-                    "cp -R " + contactsPath + "/files/photos " + cachePath,
-                    "chown  +" + appUid + ":+" + appUid + " " + cachedPhotos.getAbsolutePath(),
-                    "chown  +" + appUid + ":+" + appUid + " " + cachedPhotos.getAbsolutePath() + "/*"
-            }));
+            addCommand(su, "rm -r " + cachedPhotos.getAbsolutePath(), CMD_RM_CACHE_IMAGES);
+            addCommand(su, "cp -R " + contactsPath + "/files/photos " + cachePath, CMD_CP_IMGS_TO_CACHE);
+            addCommand(su, "chown  +" + appUid + ":+" + appUid + " " + cachedPhotos.getAbsolutePath(), CMD_CHOWN_CACHE_IMGS_DIR);
+            addCommand(su, "chown  +" + appUid + ":+" + appUid + " " + cachedPhotos.getAbsolutePath() + "/*", CMD_CHOWN_CACHE_IMGS_FILES);
+            su.waitForIdle();
 
             internalProg = (int)(0.20 * PROGRESS_MAX);
             publishProgress(internalProg, null);
@@ -255,6 +274,7 @@ public final class DbProcessorFragment extends Fragment {
             if(!cachedPhotos.exists() && !cachedPhotos.canRead() || !cachedPhotos.canExecute()) {
                 publishProgress(internalProg, act.getString(R.string.frag_dbproc_photocpfail,
                         cachedPhotos.exists(), cachedPhotos.canRead(), cachedPhotos.canExecute()));
+                su.close();
                 return null;
             }
 
@@ -265,6 +285,7 @@ public final class DbProcessorFragment extends Fragment {
                 if(!Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
                     publishProgress(internalProg,
                             act.getString(R.string.frag_dbproc_backupstateerror, Environment.getExternalStorageState()));
+                    su.close();
                     return null;
                 }
                 internalProg = (int)(0.25 * PROGRESS_MAX);
@@ -274,6 +295,7 @@ public final class DbProcessorFragment extends Fragment {
                 if(!backupDir.exists() && !backupDir.mkdirs()) {
                     publishProgress(internalProg,
                             act.getString(R.string.frag_dbproc_backupmkdirerror, backupDir.getAbsolutePath()));
+                    su.close();
                     return null;
                 } else {
                     try {
@@ -282,6 +304,7 @@ public final class DbProcessorFragment extends Fragment {
                     } catch (IOException ex) {
                         publishProgress(internalProg,
                                 act.getString(R.string.frag_dbproc_backupcopyerror, ex.getMessage()));
+                        su.close();
                         return null;
                     }
                 }
@@ -294,6 +317,7 @@ public final class DbProcessorFragment extends Fragment {
                 contactsDb = SQLiteDatabase.openDatabase(cachedDb.getAbsolutePath(), null, SQLiteDatabase.OPEN_READWRITE);
             } catch (SQLiteException ex) {
                 publishProgress(internalProg, act.getString(R.string.frag_dbproc_opendberror, ex.getMessage()));
+                su.close();
                 return null;
             }
 
@@ -381,6 +405,7 @@ public final class DbProcessorFragment extends Fragment {
                 }
             } catch (SQLException ex) {
                 publishProgress(internalProg, act.getString(R.string.frag_dbproc_insertfail, ex.getMessage()));
+                su.close();
                 return null;
             } finally {
                 update.close();
@@ -392,12 +417,11 @@ public final class DbProcessorFragment extends Fragment {
                 publishProgress(internalProg, act.getString(R.string.frag_dbproc_cpbackdryrun));
             } else {
                 publishProgress(internalProg, act.getString(R.string.frag_dbproc_cpback));
-                logSuOutput(Shell.SU.run(new String[] {
-                        "cp " + cachedDb.getAbsolutePath() + " " + contactsPath + "/databases/contacts2.db",
-                        "cp " + cachedJournal.getAbsolutePath() + " " + contactsPath + "/databases/contacts2.db-journal",
-                        "chown +" + providerUid + ":+" + providerUid + " " + contactsPath + "/databases/contacts2.db",
-                        "chown +" + providerUid + ":+" + providerUid + " " + contactsPath + "/databases/contacts2.db-journal"
-                }));
+                addCommand(su, "cp " + cachedDb.getAbsolutePath() + " " + contactsPath + "/databases/contacts2.db", CMD_CP_CACHE_TO_DB);
+                addCommand(su, "cp " + cachedJournal.getAbsolutePath() + " " + contactsPath + "/databases/contacts2.db-journal", CMD_CP_CACHE_TO_JOURNAL);
+                addCommand(su, "chown +" + providerUid + ":+" + providerUid + " " + contactsPath + "/databases/contacts2.db", CMD_CHOWN_DB);
+                addCommand(su, "chown +" + providerUid + ":+" + providerUid + " " + contactsPath + "/databases/contacts2.db-journal", CMD_CHOWN_JOURNAL);
+                su.waitForIdle();
             }
 
             internalProg = PROGRESS_MAX;
@@ -412,22 +436,41 @@ public final class DbProcessorFragment extends Fragment {
                 }
                 publishProgress(internalProg, act.getString(dryRun ? R.string.frag_dbproc_dryreboot :
                         R.string.frag_dbproc_softreboot_bye));
+                su.close();
                 return dryRun ? null : true;
             }
 
+            su.close();
             return null;
         }
 
-        private void logSuOutput(List<String> output) {
-            if(output == null) {
-                return;
-            }
-            for(String s : output) {
-                if(s != null && !s.trim().isEmpty()) {
-                    publishProgress(null, act.getString(R.string.frag_dbproc_shell, s.trim()));
-                }
-            }
+        private void addCommand(Shell.Interactive su, String command, int code) {
+            publishProgress(null, act.getString(R.string.frag_dbproc_shell, code, command));
+            su.addCommand(command, code, commandResultListener);
         }
+
+        private final Shell.OnCommandResultListener commandResultListener = new Shell.OnCommandResultListener() {
+            @Override
+            public void onCommandResult(int commandCode, int exitCode, List<String> output) {
+                cmdResults.put(commandCode, exitCode);
+
+                StringBuilder buildLog = new StringBuilder();
+                if(output != null) {
+                    for(String s : output) {
+                        if(s != null && !s.trim().isEmpty()) {
+                            buildLog.append(s);
+                            buildLog.append('\n');
+                        }
+                    }
+                }
+                if(buildLog.length() > 0) {
+                    buildLog.deleteCharAt(buildLog.length() - 1);
+                    buildLog.insert(0, '\n');
+                }
+                publishProgress(null, act.getString(R.string.frag_dbproc_shellout, commandCode,
+                        exitCode, buildLog.toString()));
+            }
+        };
 
         @Override
         protected void onProgressUpdate(Object... objects) {
