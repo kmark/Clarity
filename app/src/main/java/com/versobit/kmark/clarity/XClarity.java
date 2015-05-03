@@ -30,9 +30,13 @@ import android.util.TypedValue;
 import de.robv.android.xposed.IXposedHookInitPackageResources;
 import de.robv.android.xposed.IXposedHookLoadPackage;
 import de.robv.android.xposed.XposedBridge;
-import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_InitPackageResources;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
+
+import static de.robv.android.xposed.XposedHelpers.callMethod;
+import static de.robv.android.xposed.XposedHelpers.callStaticMethod;
+import static de.robv.android.xposed.XposedHelpers.findClass;
+import static de.robv.android.xposed.XposedHelpers.setStaticIntField;
 
 public final class XClarity implements IXposedHookLoadPackage, IXposedHookInitPackageResources {
 
@@ -92,9 +96,9 @@ public final class XClarity implements IXposedHookLoadPackage, IXposedHookInitPa
             return;
         }
 
-        Object activityThread = XposedHelpers.callStaticMethod(
-                XposedHelpers.findClass(ACTIVITY_THREAD_CLASS, null), ACTIVITY_THREAD_CURRENTACTHREAD);
-        Context systemCtx = (Context)XposedHelpers.callMethod(activityThread, ACTIVITY_THREAD_GETSYSCTX);
+        Object activityThread = callStaticMethod(
+                findClass(ACTIVITY_THREAD_CLASS, null), ACTIVITY_THREAD_CURRENTACTHREAD);
+        Context systemCtx = (Context) callMethod(activityThread, ACTIVITY_THREAD_GETSYSCTX);
 
         Config.reload(systemCtx);
 
@@ -103,8 +107,8 @@ public final class XClarity implements IXposedHookLoadPackage, IXposedHookInitPa
             return;
         }
 
-        Class PhotoProcessor = XposedHelpers.findClass(PHOTO_PROCESSOR_CLASS, lpp.classLoader);
-        XposedHelpers.setStaticIntField(PhotoProcessor, PHOTO_PROCESSOR_THUMBNAIL, Config.thumbnailDim);
+        Class PhotoProcessor = findClass(PHOTO_PROCESSOR_CLASS, lpp.classLoader);
+        setStaticIntField(PhotoProcessor, PHOTO_PROCESSOR_THUMBNAIL, Config.thumbnailDim);
 
         debug("%s set to %d for %s", PHOTO_PROCESSOR_THUMBNAIL, Config.thumbnailDim, lpp.processName);
     }
