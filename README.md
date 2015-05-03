@@ -53,6 +53,7 @@ A Google Hangouts incoming SMS notification. Taken with a Moto 360 on Android 5.
 ## Features
 * Simple lightweight Xposed modification
 * Powerful database processor for forcibly updating contact thumbnails
+* Also clarifies locally stored album art
 * Should work on nearly any AOSP-based ROM like CyanogenMod
 * Free and open-source software. No nags. No data collection. No secrets.
 
