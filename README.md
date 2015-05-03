@@ -73,6 +73,10 @@ Clarity should work with CyanogenMod and other closely AOSP-based ROMs. Other RO
 
 * CyanogenMod 12
 
+**LG G3**
+
+* SkyDragon (Lollipop)
+
 **Motorola Droid X2**
 
 * CyanogenMod 10
