@@ -19,7 +19,7 @@
 -->
 <resources>
 
-    <string name="app_name">Clarity</string>
+    <string name="app_name" translatable="false">Clarity</string>
     <string name="xposed_desc">Contact thumbnails you don\'t mind looking at.</string>
 
 </resources>

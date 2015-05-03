@@ -19,14 +19,14 @@
 -->
 <resources>
 
-    <string name="dialog_about_copyright">Copyright © 2015 Kevin Mark </string>
+    <string name="dialog_about_copyright" translatable="false">Copyright © 2015 Kevin Mark </string>
     <string name="dialog_about_donate">Clarity is developed in my spare time and will always
         remain free and open-source software. If you find this application useful please feel free to
     <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=M9Z5Y8EF3DH7G">donate</a>.</string>
     <string name="dialog_about_github_title">GitHub</string>
-    <string name="dialog_about_github_link">https://github.com/kmark/Clarity</string>
+    <string name="dialog_about_github_link" translatable="false">https://github.com/kmark/Clarity</string>
     <string name="dialog_about_xda_title">XDA</string>
-    <string name="dialog_about_xda_link">http://forum.xda-developers.com/xposed/modules/clarity-contact-thumbnails-don-t-mind-t3063804</string>
+    <string name="dialog_about_xda_link" translatable="false">http://forum.xda-developers.com/xposed/modules/clarity-contact-thumbnails-don-t-mind-t3063804</string>
     <string name="dialog_about_license"><a href="#">License</a></string>
     <string name="dialog_about_license_title">License</string>
     <string name="dialog_about_thanks">Thank you!</string>
