@@ -20,9 +20,12 @@
 package com.versobit.kmark.clarity;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.content.res.XResources;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
+import android.util.TypedValue;
 
 import de.robv.android.xposed.IXposedHookInitPackageResources;
 import de.robv.android.xposed.IXposedHookLoadPackage;
@@ -43,17 +46,20 @@ public final class XClarity implements IXposedHookLoadPackage, IXposedHookInitPa
     private static final String ACTIVITY_THREAD_GETSYSCTX = "getSystemContext";
 
     private static final String CONTACTS_PROVIDER_PKG = "com.android.providers.contacts";
+    private static final String MEDIA_PROVIDER_PKG = "com.android.providers.media";
 
     private static final String PHOTO_PROCESSOR_CLASS = "com.android.providers.contacts.PhotoProcessor";
     private static final String PHOTO_PROCESSOR_THUMBNAIL = "sMaxThumbnailDim";
 
     private static final String RES_THUMBNAIL = "config_max_thumbnail_photo_dim";
+    private static final String RES_ALBUM_THUMBNAIL = "maximum_thumb_size";
 
     private static final class Config {
 
         private static final Uri ALL_PREFS_URI = Uri.parse("content://" + SettingsProvider.AUTHORITY + "/all");
 
-        private static int thumbnailDim = 256;
+        private static int thumbnailDim = 256; // px
+        private static int albumThumbDim = 650; // dp
         private static boolean debug = false;
 
         private static void reload(Context ctx) {
@@ -105,6 +111,17 @@ public final class XClarity implements IXposedHookLoadPackage, IXposedHookInitPa
 
     @Override
     public void handleInitPackageResources(XC_InitPackageResources.InitPackageResourcesParam pkgRes) throws Throwable {
+        if(MEDIA_PROVIDER_PKG.equals(pkgRes.packageName)) {
+            try {
+                pkgRes.res.setReplacement(MEDIA_PROVIDER_PKG, "dimen", RES_ALBUM_THUMBNAIL,
+                        new XResources.DimensionReplacement(Config.albumThumbDim, TypedValue.COMPLEX_UNIT_DIP));
+                debug("%s set to %d", RES_ALBUM_THUMBNAIL, Config.albumThumbDim);
+            } catch (Resources.NotFoundException ex) {
+                // Oh well
+            }
+            return;
+        }
+
         if(!CONTACTS_PROVIDER_PKG.equals(pkgRes.packageName) ||
                 Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             return;
