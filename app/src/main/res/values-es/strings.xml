@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (C) 2015 Kevin Mark
+
+    This file is part of Clarity.
+
+    Clarity is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Clarity is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Clarity.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <string name="dialog_about_dismiss">De acuerdo</string>
+    <string name="dialog_about_donate">Clarity fue desarrollada en mi tiempo libre y siempre será de código abierto. Si encuentras útil esta aplicación, no dudes en donar, para seguir creciendo<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=M9Z5Y8EF3DH7G"> Aquí</a>.</string>
+    <string name="dialog_about_github_title">GitHub</string>
+    <string name="dialog_about_license"><a href="#">Licencia</a></string>
+    <string name="dialog_about_license_title">Licencia</string>
+    <string name="dialog_about_ok">OK</string>
+    <string name="dialog_about_thanks">¡Gracias!</string>
+    <string name="dialog_about_xda_title">XDA</string>
+    <string name="dialog_dbproc_dryrun">Dry Run</string>
+    <string name="dialog_dbproc_exec">Empezar</string>
+    <string name="dialog_dbproc_execpct">%1$d%%</string>
+    <string name="dialog_dbproc_retainbackups">Conservar copias</string>
+    <string name="dialog_dbproc_softreboot">Reinicio corto</string>
+    <string name="dialog_dbproc_title">Procesador de la base de datos</string>
+    <string name="frag_dbproc_backupcopyerror">Error: Fallo en realizar la copia de seguridad de contactos %1$s\n</string>
+    <string name="frag_dbproc_backupdir" tools:ignore="TypographyDashes">%1$tF--%1$tH-%1$tM-%1$tS</string>
+    <string name="frag_dbproc_backupmkdirerror">Error: Fallo al crear la ubicación de la copia de seguridad %1$s\n</string>
+    <string name="frag_dbproc_backupstateerror">Error: Almacenamiento externo no está montado (%1$s)</string>
+    <string name="frag_dbproc_cpback">La copia de contactos a sido ubicada en su sitio original…\n</string>
+    <string name="frag_dbproc_cpbackdryrun">Dry run. No sobrescribir la base de datos de los contactos.\n</string>
+    <string name="frag_dbproc_cpdbcache">Copiando la base de datos de los contastos a caché…\n</string>
+    <string name="frag_dbproc_cppicscache">Copiando fotos a caché…\n</string>
+    <string name="frag_dbproc_dbqd15">Consultando las fotos de los contactos…\n</string>
+    <string name="frag_dbproc_dbqd15total">%1$d creado.\n</string>
+    <string name="frag_dbproc_dobackup">Realizando copia de contactos a %1$s\n</string>
+    <string name="frag_dbproc_dryreboot">Dry run. No se reiniciará.\n</string>
+    <string name="frag_dbproc_end">Tarea terminada %1$tF a las %1$tr\n</string>
+    <string name="frag_dbproc_founduids">Clarity UID = %1$d, Contactos UID = %2$d\n</string>
+    <string name="frag_dbproc_initcpfail">Error: Fallo al copiar la base datos a caché %1$s, %2$s, %3$s, %4$s, %5$s, %6$s\n</string>
+    <string name="frag_dbproc_insertfail">Error: Fallo al insertar, inserte un nuevo tamaños de imagén %1$s\n</string>
+    <string name="frag_dbproc_insertphotos">Placing %1$d new thumbnail%2$s into the contacts database…\n</string>
+    <string name="frag_dbproc_insertphotos_plural">s</string>
+    <string name="frag_dbproc_invalidchars">Error: The caché and/or contact path contains invalid characters.\n</string>
+    <string name="frag_dbproc_newthumb">Nueva Miniatura %1$d×%2$d, %3$d bytes\n</string>
+    <string name="frag_dbproc_noroot">Error: No tienes acceso a Root.\n</string>
+    <string name="frag_dbproc_notsquare">La foto del contacto no es cuadrada. Esta será omitida\n</string>
+    <string name="frag_dbproc_opendb">Abriendo la base de datos de los contactos…\n</string>
+    <string name="frag_dbproc_opendberror">Error: Fallo al abrir la base de datos %s\n</string>
+    <string name="frag_dbproc_params">Tamaño = %1$d, Dry Run = %2$s, Copia de seguridad = %3$s, Reinicio = %4$s\nCaché = %5$s\nContactos = %6$s\n</string>
+    <string name="frag_dbproc_photochkfail">Advertencia: fallo al validar el archivo de la foto: %1$s, %2$s, %3$s\n</string>
+    <string name="frag_dbproc_photocpfail">Error: Fallo al copiar la fuente caché de la foto %1$s %2$s %3$s\n</string>
+    <string name="frag_dbproc_photosize">La fuente de la foto es %1$d×%2$d.\n</string>
+    <string name="frag_dbproc_pkg404">Error: No se pudo encontrar los paquetes requeridos. %1$s\n</string>
+    <string name="frag_dbproc_shell">Shell: %1$s\n</string>
+    <string name="frag_dbproc_softreboot_bye">Reiniciando…\n</string>
+    <string name="frag_dbproc_softreboot_wait">Reinicio en 3 segundos…\n</string>
+    <string name="frag_dbproc_starting">Empezando tarea %1$tF a las %1$tr\n</string>
+    <string name="frag_dbproc_success">Las miniaturas de los contactos han sido actualizadas con éxito.\n</string>
+    <string name="frag_dbproc_thumbpreferror">ATENCIÓN: La configuración de la dimensión establecida de miniatura no se ha podido ser realizar. Defaulting to %1$d.\n</string>
+    <string name="frag_dbproc_workphoto">%1$d/%2$d: Calculando contactos %3$d con foto %4$s\n</string>
+    <string name="frag_dbrpoc_selinux">SELinux está siendo ejecutado.\n</string>
+    <string name="pref_desc_about_clarity">Gratis, código-abierto, impresionante</string>
+    <string name="pref_desc_about_debug">Registro avanzado de Xposed </string>
+    <string name="pref_desc_database_processor">Ver hilo XDA antes de usar.</string>
+    <string name="pref_desc_show_icon">Clarity se visualizrá en su launcher</string>
+    <string name="pref_header_about">Acerca de</string>
+    <string name="pref_title_about_debug">Modo de depuración</string>
+    <string name="pref_title_database_processor">Procesador de datos</string>
+    <string name="pref_title_show_icon">Mostrar icono</string>
+    <string name="pref_title_thumbnail_dim">Tamaño de las miniaturas</string>
+    <string name="title_activity_settings">Clarity</string>
+    <string name="xposed_desc">Aumente el tamaño y calidad de las miniaturas de los contactos.</string>
+    <string name="frag_dbproc_nojournal">Se ha encontrado ningún archivo de diario.\n</string>
+    <string name="frag_dbproc_shellout">Comando %1$d regresó %2$d%3$s\n</string>
+
+</resources>
