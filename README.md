@@ -108,6 +108,7 @@ Clarity should work with CyanogenMod and other closely AOSP-based ROMs. Other RO
 
 * CyanogenMod 11
 * CyanogenMod 12
+* CyanogenMod 13
 
 **Xperia J**
 
