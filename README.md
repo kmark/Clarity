@@ -99,7 +99,7 @@ Clarity should work with CyanogenMod and other closely AOSP-based ROMs. Other RO
 
 * CyanogenModX 5.0.2
 
-** Samsung Galaxy Note 4**
+**Samsung Galaxy Note 4**
 
 * CyanogenMod 12 (3/24 nightly)
 * Stock (doesn't work? try this)
@@ -110,9 +110,11 @@ Clarity should work with CyanogenMod and other closely AOSP-based ROMs. Other RO
 * CyanogenMod 12
 
 **Xperia J**
+
 * Xperia Revolution ROM
 
 ## ROM Incompatibility
+
 **Moto X (2013)**
 
 * Stock (Android 4.4)
