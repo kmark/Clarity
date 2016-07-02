@@ -147,7 +147,7 @@ Took a backup with your custom recovery before processing? Just restore from the
 
 
 ## Licensing
-Copyright &copy; 2015 Kevin Mark. Clarity is licensed under the GNU General Public License, Version 3, which can
+Copyright &copy; 2015-2016 Kevin Mark. Clarity is licensed under the GNU General Public License, Version 3, which can
 be found in `LICENSE.md`
 
 Clarity uses a number of open-source tools and libraries. Check the "License" link from within the app or open `app/src/main/assets/license.html`
