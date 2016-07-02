@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-    Copyright (C) 2015 Kevin Mark
+    Copyright (C) 2015-2016 Kevin Mark
 
     This file is part of Clarity.
 
@@ -58,5 +58,7 @@
     <string name="frag_dbproc_shell">Shell: %1$d - %2$s\n</string>
     <string name="frag_dbproc_shellout">Command %1$d returned %2$d%3$s\n</string>
     <string name="frag_dbproc_nojournal">No journal file found.\n</string>
+    <string name="frag_dbproc_selinux_setpermissive">Setting SELinux to permissive…\n</string>
+    <string name="frag_dbproc_selinux_setenforcing">Setting SELinux to enforcing…\n</string>
 
 </resources>
