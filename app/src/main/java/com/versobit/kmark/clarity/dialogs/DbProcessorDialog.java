@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 Kevin Mark
+ * Copyright (C) 2015-2016 Kevin Mark
  *
  * This file is part of Clarity.
  *
@@ -19,12 +19,15 @@
 
 package com.versobit.kmark.clarity.dialogs;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -44,6 +47,7 @@ public final class DbProcessorDialog extends DialogFragment
         implements DbProcessorFragment.Callbacks {
 
     public static final String FRAGMENT_TAG = "fragment_diag_dbproc";
+    private static final int REQUEST_WRITE_EXT = 2828;
 
     private ScrollView logVScroll;
     private CheckBox cbDryRun;
@@ -94,6 +98,13 @@ public final class DbProcessorDialog extends DialogFragment
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
+                        getActivity().checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    requestPermissions(new String[] { Manifest.permission.WRITE_EXTERNAL_STORAGE }, REQUEST_WRITE_EXT);
+                    return;
+                }
+
                 // Another check (just in case?)
                 if(worker != null && worker.getStatus() == AsyncTask.Status.RUNNING) {
                     return;
@@ -113,6 +124,17 @@ public final class DbProcessorDialog extends DialogFragment
         });
 
         return adb.setView(v).create();
+    }
+
+    @TargetApi(Build.VERSION_CODES.M)
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_WRITE_EXT:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    start.callOnClick();
+                }
+        }
     }
 
     @Override
