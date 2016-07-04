@@ -22,6 +22,7 @@ package com.versobit.kmark.clarity;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -88,9 +89,16 @@ public final class DbProcessorFragment extends Fragment {
         return frag;
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
+        bind();
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
         bind();
     }
 
