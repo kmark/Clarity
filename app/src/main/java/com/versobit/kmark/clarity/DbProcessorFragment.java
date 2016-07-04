@@ -34,6 +34,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
@@ -177,6 +178,8 @@ public final class DbProcessorFragment extends Fragment {
         protected void onPreExecute() {
             log.setLength(0);
             start = new Date();
+            onProgressUpdate(null, act.getString(R.string.frag_dbproc_version,
+                    BuildConfig.VERSION_NAME, Build.MANUFACTURER, Build.MODEL, Build.DISPLAY));
             onProgressUpdate(null, act.getString(R.string.frag_dbproc_starting, start));
         }
 

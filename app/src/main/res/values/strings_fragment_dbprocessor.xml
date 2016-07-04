@@ -19,6 +19,7 @@
 -->
 <resources xmlns:tools="http://schemas.android.com/tools">
 
+    <string name="frag_dbproc_version" translatable="false">Clarity v%1$s\n%2$s %3$s %4$s\n</string>
     <string name="frag_dbproc_starting">Starting task on %1$tF at %1$tr\n</string>
     <string name="frag_dbproc_end">Task ended on %1$tF at %1$tr\n</string>
     <string name="frag_dbproc_backupdir" tools:ignore="TypographyDashes">%1$tF--%1$tH-%1$tM-%1$tS</string>
