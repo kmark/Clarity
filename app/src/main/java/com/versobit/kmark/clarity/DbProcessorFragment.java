@@ -50,6 +50,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 import eu.chainfire.libsuperuser.Debug;
@@ -172,7 +173,7 @@ public final class DbProcessorFragment extends Fragment {
         private Date start = null;
         private File logFile = null;
         private final Activity act = getActivity();
-        private final Hashtable<Integer, CommandResult> cmdResults = new Hashtable<>();
+        private final Map<Integer, CommandResult> cmdResults = new Hashtable<>();
 
         @Override
         protected void onPreExecute() {
