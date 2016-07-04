@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-    Copyright (C) 2015 Kevin Mark
+    Copyright (C) 2015-2016 Kevin Mark
 
     This file is part of Clarity.
 
@@ -80,7 +80,6 @@
     <string name="pref_title_show_icon">Mostrar icono</string>
     <string name="pref_title_thumbnail_dim">Tamaño de las miniaturas</string>
     <string name="title_activity_settings">Clarity</string>
-    <string name="xposed_desc">Aumente el tamaño y calidad de las miniaturas de los contactos.</string>
     <string name="frag_dbproc_nojournal">Se ha encontrado ningún archivo de diario.\n</string>
     <string name="frag_dbproc_shellout">Comando %1$d regresó %2$d%3$s\n</string>
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-    Copyright (C) 2015 Kevin Mark
+    Copyright (C) 2015-2016 Kevin Mark
 
     This file is part of Clarity.
 
@@ -17,9 +17,11 @@
     You should have received a copy of the GNU General Public License
     along with Clarity.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<resources>
+<resources
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:locale="en">
 
     <string name="app_name" translatable="false">Clarity</string>
-    <string name="xposed_desc">Contact thumbnails you don\'t mind looking at.</string>
+    <string name="xposed_desc" translatable="false">Contact thumbnails you don\'t mind looking at.</string>
 
 </resources>
